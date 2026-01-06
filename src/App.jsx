@@ -196,9 +196,11 @@ export default function InteractiveSEOAudit() {
     auditDate: new Date().toISOString().split('T')[0],
     auditor: ''
   });
+  
   const [showScoreBreakdown, setShowScoreBreakdown] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // --- AUTO-GUARDADO: Cargar datos al iniciar ---
   useEffect(() => {
     const savedData = localStorage.getItem('seoAuditData');
     if (savedData) {
@@ -214,6 +216,7 @@ export default function InteractiveSEOAudit() {
     setIsLoaded(true);
   }, []);
 
+  // --- AUTO-GUARDADO: Guardar datos cada vez que cambien ---
   useEffect(() => {
     if (isLoaded) {
       const dataToSave = {
@@ -225,6 +228,23 @@ export default function InteractiveSEOAudit() {
     }
   }, [checkedItems, notes, siteInfo, isLoaded]);
 
+  // --- AUTO-RESIZE: Comunicación con el iframe padre ---
+  useEffect(() => {
+    const sendHeight = () => {
+      const height = document.body.scrollHeight;
+      window.parent.postMessage({ type: 'seo-audit-resize', height }, '*');
+    };
+
+    // 1. Enviar altura inicial
+    sendHeight();
+
+    // 2. Enviar cada vez que algo visual cambie
+    const observer = new ResizeObserver(sendHeight);
+    observer.observe(document.body);
+
+    // Limpieza
+    return () => observer.disconnect();
+  }, [expandedPhases, showScoreBreakdown]); 
 
   const toggleItem = (itemId) => {
     setCheckedItems(prev => ({
