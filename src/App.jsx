@@ -196,7 +196,6 @@ export default function InteractiveSEOAudit() {
   const [showScoreBreakdown, setShowScoreBreakdown] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // --- AUTO-GUARDADO: Cargar datos al iniciar ---
   useEffect(() => {
     const savedData = localStorage.getItem('seoAuditData');
     if (savedData) {
@@ -212,7 +211,6 @@ export default function InteractiveSEOAudit() {
     setIsLoaded(true);
   }, []);
 
-  // --- AUTO-GUARDADO: Guardar datos cada vez que cambien ---
   useEffect(() => {
     if (isLoaded) {
       const dataToSave = {
@@ -297,7 +295,7 @@ export default function InteractiveSEOAudit() {
       setCheckedItems({});
       setNotes({});
       setExpandedPhases({});
-      localStorage.removeItem('seoAuditData'); // Borrar también de localStorage
+      localStorage.removeItem('seoAuditData');
     }
   };
 
@@ -316,13 +314,11 @@ export default function InteractiveSEOAudit() {
     doc.setFillColor(30, 41, 59); // Slate 900
     doc.rect(0, 0, pageWidth, 40, 'F');
     
-    // Título
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(22);
     doc.setFont("helvetica", "bold");
-    doc.text("AUDITORÍA SEO PROFESIONAL", 20, 20);
+    doc.text("AUDITORIA SEO PROFESIONAL", 20, 20); // Sin tilde en I para evitar problemas
     
-    // Subtítulo
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
     doc.text("Por Jairo Amaya - Full Stack Marketer", 20, 30);
@@ -346,13 +342,13 @@ export default function InteractiveSEOAudit() {
     
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text("PUNTUACIÓN GLOBAL", 30, yPos + 12);
+    doc.text("PUNTUACION GLOBAL", 30, yPos + 12); // Sin tilde
     
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
-    if(score >= 90) doc.setTextColor(34, 197, 94); // Green
-    else if(score >= 60) doc.setTextColor(234, 179, 8); // Yellow
-    else doc.setTextColor(239, 68, 68); // Red
+    if(score >= 90) doc.setTextColor(34, 197, 94);
+    else if(score >= 60) doc.setTextColor(234, 179, 8);
+    else doc.setTextColor(239, 68, 68);
     
     doc.text(`${score}/100`, 30, yPos + 24);
     
@@ -361,7 +357,7 @@ export default function InteractiveSEOAudit() {
     doc.text(`Nivel: ${scoreLevel.level}`, 100, yPos + 12);
     doc.setFontSize(10);
     doc.text(scoreLevel.desc, 100, yPos + 20);
-    doc.text(`Items Críticos Pendientes: ${criticalRemaining}`, 100, yPos + 28);
+    doc.text(`Items Criticos Pendientes: ${criticalRemaining}`, 100, yPos + 28); // Sin tilde en Criticos
     
     yPos += 50;
 
@@ -374,7 +370,8 @@ export default function InteractiveSEOAudit() {
       doc.setTextColor(185, 28, 28);
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
-      doc.text("⚠️ TOP PRIORIDADES DE ACCIÓN", 30, yPos + 8);
+      // ELIMINADO EL EMOJI DE AQUÍ
+      doc.text("TOP PRIORIDADES DE ACCION", 30, yPos + 8); // Sin tilde
       
       doc.setTextColor(50, 50, 50);
       doc.setFontSize(10);
@@ -394,7 +391,7 @@ export default function InteractiveSEOAudit() {
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
-    doc.text("DETALLE DE LA AUDITORÍA", 20, yPos);
+    doc.text("DETALLE DE LA AUDITORIA", 20, yPos); // Sin tilde
     yPos += 10;
     
     auditData.forEach(phase => {
@@ -408,6 +405,7 @@ export default function InteractiveSEOAudit() {
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(30, 41, 59);
+        // TÍTULOS EN MAYÚSCULAS SIN TILDES PARA SEGURIDAD (Opcional, pero recomendado si falla)
         doc.text(`${phase.title.toUpperCase()} (Progreso: ${calculateProgress(phase)}%)`, 25, yPos + 6);
         yPos += 12;
 
@@ -422,7 +420,7 @@ export default function InteractiveSEOAudit() {
             
             const isChecked = checkedItems[item.id];
             const status = isChecked ? "[ OK ]" : "[   ]";
-            const criticalMark = item.critical && !isChecked ? "(CRÍTICO)" : "";
+            const criticalMark = item.critical && !isChecked ? "(CRITICO)" : ""; // Sin tilde
             
             if (isChecked) doc.setTextColor(22, 163, 74);
             else if (item.critical) doc.setTextColor(220, 38, 38);
@@ -432,7 +430,7 @@ export default function InteractiveSEOAudit() {
             
             if (notes[item.id]) {
                 doc.setTextColor(80, 80, 150);
-                doc.text(`   ↳ Nota: ${notes[item.id]}`, 25, yPos + 4);
+                doc.text(`   -> Nota: ${notes[item.id]}`, 25, yPos + 4);
                 yPos += 4;
             }
             yPos += 6;
@@ -440,7 +438,7 @@ export default function InteractiveSEOAudit() {
         yPos += 5;
     });
 
-    // --- NUEVO BLOQUE: RECOMENDACIONES FINALES ---
+    // --- RECOMENDACIONES FINALES ---
     if (yPos > 220) {
       doc.addPage();
       yPos = 20;
@@ -451,17 +449,18 @@ export default function InteractiveSEOAudit() {
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
-    doc.text("💡 RECOMENDACIONES FINALES", 20, yPos);
+    // ELIMINADO EL EMOJI
+    doc.text("RECOMENDACIONES FINALES", 20, yPos);
     yPos += 10;
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(50, 50, 50);
     const recLines = [
-      "1. Enfócate primero en los items CRÍTICOS pendientes",
-      "2. Prioriza las acciones de Análisis Técnico (25% del peso total)",
+      "1. Enfocate primero en los items CRITICOS pendientes", // Sin tildes
+      "2. Prioriza las acciones de Analisis Tecnico (25% del peso total)",
       "3. Mejora el On-Page SEO para maximizar resultados (30% del peso)",
-      "4. Documenta todas las mejoras para próximas auditorías"
+      "4. Documenta todas las mejoras para proximas auditorias"
     ];
     
     recLines.forEach(line => {
@@ -469,52 +468,49 @@ export default function InteractiveSEOAudit() {
       yPos += 7;
     });
 
-    // --- NUEVO FOOTER COMPLETO ---
+    // --- FOOTER COMPLETO ---
     doc.addPage();
     doc.setFillColor(30, 41, 59);
     doc.rect(0, 0, pageWidth, 297, 'F'); 
     
     doc.setTextColor(255, 255, 255);
     
-    // Título footer
     doc.setFontSize(22);
     doc.text("SOBRE ESTE REPORTE", 105, 60, { align: 'center' });
     
-    // Bloque central
     doc.setFontSize(16);
     doc.text("JAIRO AMAYA", 105, 90, { align: 'center' });
     doc.setFontSize(12);
     doc.setTextColor(200, 200, 200);
-    doc.text("Full Stack Marketer | Consultor SEO con +20 años de experiencia", 105, 100, { align: 'center' });
+    // REMOVIDO EL + QUE PODRÍA CAUSAR RUIDO, AUNQUE SUELE SER SEGURO
+    doc.text("Full Stack Marketer | Consultor SEO con 20 anos de experiencia", 105, 100, { align: 'center' });
     
-    // Links y Contacto
-    doc.setTextColor(56, 189, 248); // Azul claro enlace
-    doc.textWithLink("🌐 Web: jairoamaya.co", 105, 120, { 
+    // ELIMINADOS LOS EMOJIS DE AQUÍ TAMBIÉN
+    doc.setTextColor(56, 189, 248);
+    doc.textWithLink("Web: jairoamaya.co", 105, 120, { 
       align: 'center', 
       url: "https://jairoamaya.co?utm_source=auditor_tool&utm_medium=pdf_report&utm_campaign=seo_audit_final" 
     });
     
-    doc.textWithLink("💼 LinkedIn: linkedin.com/in/jairoamayalaverde", 105, 130, { 
+    doc.textWithLink("LinkedIn: linkedin.com/in/jairoamayalaverde", 105, 130, { 
       align: 'center', 
       url: "https://www.linkedin.com/in/jairoamayalaverde" 
     });
 
     doc.setTextColor(255, 255, 255);
-    doc.text("📧 Consultoría: Disponible para proyectos personalizados", 105, 140, { align: 'center' });
+    doc.text("Consultoria: Disponible para proyectos personalizados", 105, 140, { align: 'center' }); // Sin tilde
 
-    // CTA
     doc.setFontSize(14);
-    doc.text("¿Necesitas ayuda profesional con tu estrategia SEO?", 105, 170, { align: 'center' });
+    doc.text("Necesitas ayuda profesional con tu estrategia SEO?", 105, 170, { align: 'center' }); // Sin apertura interrogación
     doc.setTextColor(56, 189, 248);
-    doc.textWithLink("Contáctame en jairoamaya.co", 105, 180, { 
+    doc.textWithLink("Contactame en jairoamaya.co", 105, 180, { // Sin tilde
         align: 'center',
         url: "https://jairoamaya.co" 
     });
 
-    // Fecha
     doc.setTextColor(100, 100, 100);
     doc.setFontSize(10);
-    doc.text(`Fecha de Generación: ${new Date().toLocaleString('es-ES')}`, 105, 280, { align: 'center' });
+    doc.text(`Fecha de Generacion: ${new Date().toLocaleDateString('es-ES')}`, 105, 280, { align: 'center' }); // Sin tilde
 
     doc.save(`auditoria-seo-${siteInfo.url || 'reporte'}.pdf`);
   };
