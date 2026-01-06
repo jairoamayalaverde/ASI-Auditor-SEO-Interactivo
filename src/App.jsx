@@ -561,7 +561,7 @@ export default function InteractiveSEOAudit() {
             🔍 Auditor SEO Interactivo
           </h1>
           <p className="text-slate-300 text-lg mb-6">
-            Por Jairo Amaya | Sistema de scoring profesional + Exportación
+            By Jairo Amaya | con 100+ puntos de verificación, scoring automático y reportes descargables
           </p>
 
           {/* NUEVA SECCIÓN: TIPS DE USO (AQUÍ ESTÁ LA MAGIA) */}
