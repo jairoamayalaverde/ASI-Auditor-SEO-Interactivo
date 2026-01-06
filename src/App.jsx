@@ -539,10 +539,10 @@ export default function InteractiveSEOAudit() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-3">
-            🔍 Auditor SEO Interactivo PRO
+            🔍 Auditor SEO Interactivo
           </h1>
           <p className="text-slate-300 text-lg mb-6">
-            Por Jairo Amaya | Sistema de scoring profesional + Exportación
+            Por Jairo Amaya | Sistema de scoring profesional + Check list descargable
           </p>
 
           {/* NUEVA SECCIÓN: TIPS DE USO (AQUÍ ESTÁ LA MAGIA) */}
