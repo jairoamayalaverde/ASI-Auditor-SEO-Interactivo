@@ -183,6 +183,7 @@ export default function InteractiveSEOAudit() {
     }
   ];
 
+  // ESTADOS
   const [checkedItems, setCheckedItems] = useState({});
   const [expandedPhases, setExpandedPhases] = useState({});
   const [notes, setNotes] = useState({});
@@ -193,6 +194,36 @@ export default function InteractiveSEOAudit() {
     auditor: ''
   });
   const [showScoreBreakdown, setShowScoreBreakdown] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // --- AUTO-GUARDADO: Cargar datos al iniciar ---
+  useEffect(() => {
+    const savedData = localStorage.getItem('seoAuditData');
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData);
+        if (parsed.checkedItems) setCheckedItems(parsed.checkedItems);
+        if (parsed.notes) setNotes(parsed.notes);
+        if (parsed.siteInfo) setSiteInfo(parsed.siteInfo);
+      } catch (e) {
+        console.error("Error cargando datos guardados", e);
+      }
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // --- AUTO-GUARDADO: Guardar datos cada vez que cambien ---
+  useEffect(() => {
+    if (isLoaded) {
+      const dataToSave = {
+        checkedItems,
+        notes,
+        siteInfo
+      };
+      localStorage.setItem('seoAuditData', JSON.stringify(dataToSave));
+    }
+  }, [checkedItems, notes, siteInfo, isLoaded]);
+
 
   const toggleItem = (itemId) => {
     setCheckedItems(prev => ({
@@ -262,10 +293,11 @@ export default function InteractiveSEOAudit() {
   };
 
   const resetAudit = () => {
-    if (confirm('¿Estás seguro de que quieres reiniciar toda la auditoría?')) {
+    if (confirm('¿Estás seguro de que quieres reiniciar toda la auditoría? Esto borrará también los datos guardados.')) {
       setCheckedItems({});
       setNotes({});
       setExpandedPhases({});
+      localStorage.removeItem('seoAuditData'); // Borrar también de localStorage
     }
   };
 
@@ -281,7 +313,6 @@ export default function InteractiveSEOAudit() {
     let yPos = 20;
 
     // --- ENCABEZADO PRO ---
-    // Fondo azul oscuro
     doc.setFillColor(30, 41, 59); // Slate 900
     doc.rect(0, 0, pageWidth, 40, 'F');
     
@@ -309,7 +340,6 @@ export default function InteractiveSEOAudit() {
     yPos += 20;
 
     // --- SCORE CARD ---
-    // Caja de score
     doc.setDrawColor(200, 200, 200);
     doc.setFillColor(248, 250, 252);
     doc.roundedRect(20, yPos, pageWidth - 40, 35, 3, 3, 'FD');
@@ -320,7 +350,6 @@ export default function InteractiveSEOAudit() {
     
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
-    // Color dinámico según score
     if(score >= 90) doc.setTextColor(34, 197, 94); // Green
     else if(score >= 60) doc.setTextColor(234, 179, 8); // Yellow
     else doc.setTextColor(239, 68, 68); // Red
@@ -338,8 +367,8 @@ export default function InteractiveSEOAudit() {
 
     // --- TOP PRIORIDADES ---
     if (recommendations.length > 0) {
-      doc.setFillColor(254, 242, 242); // Red background light
-      doc.setDrawColor(252, 165, 165); // Red border
+      doc.setFillColor(254, 242, 242);
+      doc.setDrawColor(252, 165, 165);
       doc.roundedRect(20, yPos, pageWidth - 40, 10 + (recommendations.length * 8), 3, 3, 'FD');
       
       doc.setTextColor(185, 28, 28);
@@ -369,7 +398,6 @@ export default function InteractiveSEOAudit() {
     yPos += 10;
     
     auditData.forEach(phase => {
-        // Verificar si necesitamos nueva página
         if (yPos > 250) {
             doc.addPage();
             yPos = 20;
@@ -396,9 +424,9 @@ export default function InteractiveSEOAudit() {
             const status = isChecked ? "[ OK ]" : "[   ]";
             const criticalMark = item.critical && !isChecked ? "(CRÍTICO)" : "";
             
-            if (isChecked) doc.setTextColor(22, 163, 74); // Green
-            else if (item.critical) doc.setTextColor(220, 38, 38); // Red
-            else doc.setTextColor(100, 100, 100); // Gray
+            if (isChecked) doc.setTextColor(22, 163, 74);
+            else if (item.critical) doc.setTextColor(220, 38, 38);
+            else doc.setTextColor(100, 100, 100);
 
             doc.text(`${status} ${item.text} ${criticalMark}`, 25, yPos);
             
@@ -412,24 +440,81 @@ export default function InteractiveSEOAudit() {
         yPos += 5;
     });
 
-    // --- FOOTER ---
+    // --- NUEVO BLOQUE: RECOMENDACIONES FINALES ---
+    if (yPos > 220) {
+      doc.addPage();
+      yPos = 20;
+    } else {
+      yPos += 10;
+    }
+
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0);
+    doc.text("💡 RECOMENDACIONES FINALES", 20, yPos);
+    yPos += 10;
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(50, 50, 50);
+    const recLines = [
+      "1. Enfócate primero en los items CRÍTICOS pendientes",
+      "2. Prioriza las acciones de Análisis Técnico (25% del peso total)",
+      "3. Mejora el On-Page SEO para maximizar resultados (30% del peso)",
+      "4. Documenta todas las mejoras para próximas auditorías"
+    ];
+    
+    recLines.forEach(line => {
+      doc.text(line, 20, yPos);
+      yPos += 7;
+    });
+
+    // --- NUEVO FOOTER COMPLETO ---
     doc.addPage();
     doc.setFillColor(30, 41, 59);
-    doc.rect(0, 0, pageWidth, 297, 'F'); // Página completa oscura
+    doc.rect(0, 0, pageWidth, 297, 'F'); 
     
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(20);
-    doc.text("JAIRO AMAYA", 105, 100, { align: 'center' });
-    doc.setFontSize(14);
-    doc.text("Full Stack Marketer | Consultor SEO", 105, 110, { align: 'center' });
     
-    doc.setFontSize(11);
-    doc.text("¿Necesitas ayuda con tu estrategia?", 105, 140, { align: 'center' });
-    doc.setTextColor(56, 189, 248); // Light Blue
-    doc.textWithLink("www.jairoamaya.co", 105, 150, { 
-        align: 'center', 
-        url: "https://jairoamaya.co?utm_source=auditor_tool&utm_medium=pdf_report&utm_campaign=seo_audit_final" 
+    // Título footer
+    doc.setFontSize(22);
+    doc.text("SOBRE ESTE REPORTE", 105, 60, { align: 'center' });
+    
+    // Bloque central
+    doc.setFontSize(16);
+    doc.text("JAIRO AMAYA", 105, 90, { align: 'center' });
+    doc.setFontSize(12);
+    doc.setTextColor(200, 200, 200);
+    doc.text("Full Stack Marketer | Consultor SEO con +20 años de experiencia", 105, 100, { align: 'center' });
+    
+    // Links y Contacto
+    doc.setTextColor(56, 189, 248); // Azul claro enlace
+    doc.textWithLink("🌐 Web: jairoamaya.co", 105, 120, { 
+      align: 'center', 
+      url: "https://jairoamaya.co?utm_source=auditor_tool&utm_medium=pdf_report&utm_campaign=seo_audit_final" 
     });
+    
+    doc.textWithLink("💼 LinkedIn: linkedin.com/in/jairoamayalaverde", 105, 130, { 
+      align: 'center', 
+      url: "https://www.linkedin.com/in/jairoamayalaverde" 
+    });
+
+    doc.setTextColor(255, 255, 255);
+    doc.text("📧 Consultoría: Disponible para proyectos personalizados", 105, 140, { align: 'center' });
+
+    // CTA
+    doc.setFontSize(14);
+    doc.text("¿Necesitas ayuda profesional con tu estrategia SEO?", 105, 170, { align: 'center' });
+    doc.setTextColor(56, 189, 248);
+    doc.textWithLink("Contáctame en jairoamaya.co", 105, 180, { 
+        align: 'center',
+        url: "https://jairoamaya.co" 
+    });
+
+    // Fecha
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(10);
+    doc.text(`Fecha de Generación: ${new Date().toLocaleString('es-ES')}`, 105, 280, { align: 'center' });
 
     doc.save(`auditoria-seo-${siteInfo.url || 'reporte'}.pdf`);
   };
