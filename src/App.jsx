@@ -196,7 +196,6 @@ export default function InteractiveSEOAudit() {
     auditDate: new Date().toISOString().split('T')[0],
     auditor: ''
   });
-  // CAMBIO: Por defecto abierto (true)
   const [showScoreBreakdown, setShowScoreBreakdown] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -534,15 +533,15 @@ export default function InteractiveSEOAudit() {
   const recommendations = getPriorityRecommendations();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-3">
+          <h1 className="text-4xl md:text-6xl font-bold font-heading text-white mb-3">
             🔍 Auditor SEO Interactivo
           </h1>
           <p className="text-slate-300 text-lg mb-6">
-            Por Jairo Amaya | Sistema de scoring profesional + Check list descargable
+            Por Jairo Amaya | Sistema de scoring profesional + Exportación
           </p>
 
           {/* NUEVA SECCIÓN: TIPS DE USO (AQUÍ ESTÁ LA MAGIA) */}
@@ -552,7 +551,7 @@ export default function InteractiveSEOAudit() {
                 <Lightbulb size={32} />
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                <h3 className="text-xl font-bold font-heading text-white mb-3 flex items-center gap-2">
                    💡 Guía de Uso Rápido
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4 text-slate-300 text-sm">
@@ -616,7 +615,7 @@ export default function InteractiveSEOAudit() {
             <div className="md:col-span-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-6 shadow-2xl">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-white text-lg font-semibold mb-1">SEO Score Global</h3>
+                  <h3 className="text-white text-lg font-bold font-heading mb-1">SEO Score Global</h3>
                   <p className="text-white/80 text-sm">Basado en 100+ puntos de verificación</p>
                 </div>
                 <Award className="text-white" size={32} />
@@ -680,7 +679,7 @@ export default function InteractiveSEOAudit() {
           {/* Score Breakdown (Ahora visible por defecto) */}
           {showScoreBreakdown && (
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 mb-6 animate-fadeIn">
-              <h3 className="text-white text-xl font-bold mb-4">📊 Desglose de Puntuación por Fase</h3>
+              <h3 className="text-white text-xl font-bold font-heading mb-4">📊 Desglose de Puntuación por Fase</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {auditData.map(phase => {
                   const phasePoints = phase.items.reduce((sum, item) => 
@@ -717,7 +716,7 @@ export default function InteractiveSEOAudit() {
           {/* Priority Recommendations */}
           {recommendations.length > 0 && (
             <div className="bg-red-900/30 backdrop-blur-md rounded-2xl p-6 border-2 border-red-500/50 mb-6">
-              <h3 className="text-white text-xl font-bold mb-4 flex items-center gap-2">
+              <h3 className="text-white text-xl font-bold font-heading mb-4 flex items-center gap-2">
                 <AlertTriangle className="text-red-400" size={24} />
                 Top 5 Prioridades de Acción Inmediata
               </h3>
@@ -774,7 +773,7 @@ export default function InteractiveSEOAudit() {
                   <div className="flex items-center gap-4">
                     <span className="text-4xl">{phase.icon}</span>
                     <div className="text-left">
-                      <h3 className="text-xl font-bold text-white">{phase.title}</h3>
+                      <h3 className="text-xl font-bold font-heading text-white">{phase.title}</h3>
                       <p className="text-slate-300 text-sm">{phase.items.length} items • Peso: {phase.weight}%</p>
                     </div>
                   </div>
