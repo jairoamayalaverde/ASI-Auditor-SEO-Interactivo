@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle2, Circle, ChevronDown, ChevronUp, RotateCcw, Award, TrendingUp, AlertTriangle, FileText } from 'lucide-react';
+import { jsPDF } from "jspdf";
 
 export default function InteractiveSEOAudit() {
   const auditData = [
@@ -273,104 +274,164 @@ export default function InteractiveSEOAudit() {
     const scoreLevel = getScoreLevel(score);
     const criticalRemaining = getCriticalItemsRemaining();
     const recommendations = getPriorityRecommendations();
+    
+    // Inicializar PDF
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPos = 20;
 
-    let pdfContent = `
-╔═══════════════════════════════════════════════════════════════╗
-║           REPORTE DE AUDITORÍA SEO PROFESIONAL                ║
-║              Por Jairo Amaya - Full Stack Marketer            ║
-╚═══════════════════════════════════════════════════════════════╝
+    // --- ENCABEZADO PRO ---
+    // Fondo azul oscuro
+    doc.setFillColor(30, 41, 59); // Slate 900
+    doc.rect(0, 0, pageWidth, 40, 'F');
+    
+    // Título
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.setFont("helvetica", "bold");
+    doc.text("AUDITORÍA SEO PROFESIONAL", 20, 20);
+    
+    // Subtítulo
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text("Por Jairo Amaya - Full Stack Marketer", 20, 30);
+    
+    yPos = 55;
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 INFORMACIÓN GENERAL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    // --- INFO DEL SITIO ---
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(10);
+    doc.text(`Sitio Web: ${siteInfo.url || 'No especificado'}`, 20, yPos);
+    doc.text(`Industria: ${siteInfo.industry || 'No especificada'}`, 20, yPos + 6);
+    doc.text(`Fecha: ${siteInfo.auditDate}`, 120, yPos);
+    doc.text(`Auditor: ${siteInfo.auditor || 'Jairo Amaya'}`, 120, yPos + 6);
+    
+    yPos += 20;
 
-Sitio Web: ${siteInfo.url || 'No especificado'}
-Industria: ${siteInfo.industry || 'No especificada'}
-Fecha de Auditoría: ${siteInfo.auditDate}
-Auditor: ${siteInfo.auditor || 'No especificado'}
+    // --- SCORE CARD ---
+    // Caja de score
+    doc.setDrawColor(200, 200, 200);
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(20, yPos, pageWidth - 40, 35, 3, 3, 'FD');
+    
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("PUNTUACIÓN GLOBAL", 30, yPos + 12);
+    
+    doc.setFontSize(24);
+    doc.setFont("helvetica", "bold");
+    // Color dinámico según score
+    if(score >= 90) doc.setTextColor(34, 197, 94); // Green
+    else if(score >= 60) doc.setTextColor(234, 179, 8); // Yellow
+    else doc.setTextColor(239, 68, 68); // Red
+    
+    doc.text(`${score}/100`, 30, yPos + 24);
+    
+    doc.setFontSize(12);
+    doc.setTextColor(80, 80, 80);
+    doc.text(`Nivel: ${scoreLevel.level}`, 100, yPos + 12);
+    doc.setFontSize(10);
+    doc.text(scoreLevel.desc, 100, yPos + 20);
+    doc.text(`Items Críticos Pendientes: ${criticalRemaining}`, 100, yPos + 28);
+    
+    yPos += 50;
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 PUNTUACIÓN SEO GLOBAL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Score: ${score}/100 - ${scoreLevel.level}
-Descripción: ${scoreLevel.desc}
-
-Items Críticos Pendientes: ${criticalRemaining}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ TOP 5 PRIORIDADES DE ACCIÓN INMEDIATA
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${recommendations.map((item, i) => `${i + 1}. [${item.phase}] ${item.text} (${item.points} pts)`).join('\n')}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📋 RESUMEN POR FASE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-`;
-
-    auditData.forEach(phase => {
-      const progress = calculateProgress(phase);
-      const completed = phase.items.filter(item => checkedItems[item.id]).length;
-      const total = phase.items.length;
+    // --- TOP PRIORIDADES ---
+    if (recommendations.length > 0) {
+      doc.setFillColor(254, 242, 242); // Red background light
+      doc.setDrawColor(252, 165, 165); // Red border
+      doc.roundedRect(20, yPos, pageWidth - 40, 10 + (recommendations.length * 8), 3, 3, 'FD');
       
-      pdfContent += `\n${phase.icon} ${phase.title.toUpperCase()}\n`;
-      pdfContent += `${'─'.repeat(60)}\n`;
-      pdfContent += `Progreso: ${progress}% (${completed}/${total} items completados)\n\n`;
-
-      phase.items.forEach(item => {
-        const status = checkedItems[item.id] ? '✓' : '○';
-        const critical = item.critical ? '[CRÍTICO]' : '';
-        pdfContent += `  ${status} ${item.text} ${critical}\n`;
-        if (notes[item.id]) {
-          pdfContent += `      → Nota: ${notes[item.id]}\n`;
-        }
+      doc.setTextColor(185, 28, 28);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text("⚠️ TOP PRIORIDADES DE ACCIÓN", 30, yPos + 8);
+      
+      doc.setTextColor(50, 50, 50);
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      
+      let recY = yPos + 16;
+      recommendations.forEach((item, index) => {
+        const text = `${index + 1}. [${item.phase}] ${item.text} (${item.points} pts)`;
+        doc.text(text, 30, recY);
+        recY += 7;
       });
-      pdfContent += '\n';
+      
+      yPos = recY + 15;
+    }
+
+    // --- DETALLE POR FASES ---
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0);
+    doc.text("DETALLE DE LA AUDITORÍA", 20, yPos);
+    yPos += 10;
+    
+    auditData.forEach(phase => {
+        // Verificar si necesitamos nueva página
+        if (yPos > 250) {
+            doc.addPage();
+            yPos = 20;
+        }
+
+        doc.setFillColor(241, 245, 249);
+        doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(30, 41, 59);
+        doc.text(`${phase.title.toUpperCase()} (Progreso: ${calculateProgress(phase)}%)`, 25, yPos + 6);
+        yPos += 12;
+
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        
+        phase.items.forEach(item => {
+            if (yPos > 275) {
+                doc.addPage();
+                yPos = 20;
+            }
+            
+            const isChecked = checkedItems[item.id];
+            const status = isChecked ? "[ OK ]" : "[   ]";
+            const criticalMark = item.critical && !isChecked ? "(CRÍTICO)" : "";
+            
+            if (isChecked) doc.setTextColor(22, 163, 74); // Green
+            else if (item.critical) doc.setTextColor(220, 38, 38); // Red
+            else doc.setTextColor(100, 100, 100); // Gray
+
+            doc.text(`${status} ${item.text} ${criticalMark}`, 25, yPos);
+            
+            if (notes[item.id]) {
+                doc.setTextColor(80, 80, 150);
+                doc.text(`   ↳ Nota: ${notes[item.id]}`, 25, yPos + 4);
+                yPos += 4;
+            }
+            yPos += 6;
+        });
+        yPos += 5;
     });
 
-    pdfContent += `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💡 RECOMENDACIONES FINALES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. Enfócate primero en los items CRÍTICOS pendientes
-2. Prioriza las acciones de Análisis Técnico (25% del peso total)
-3. Mejora el On-Page SEO para maximizar resultados (30% del peso)
-4. Documenta todas las mejoras para próximas auditorías
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📞 SOBRE ESTE REPORTE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Este reporte fue generado con el Auditor SEO Interactivo
-Creado por: Jairo Amaya
-Full Stack Marketer | Consultor SEO con +20 años de experiencia
-
-🌐 Web: https://jairoamaya.co?utm_source=auditor_tool&utm_medium=report&utm_campaign=seo_audit_export
-💼 LinkedIn: linkedin.com/in/jairoamayalaverde
-📧 Consultoría: Disponible para proyectos personalizados
-
-¿Necesitas ayuda profesional con tu estrategia SEO?
-Contáctame en jairoamaya.co
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Fecha de Generación: ${new Date().toLocaleString('es-ES')}
-`;
-
-    const blob = new Blob([pdfContent], { type: 'text/plain;charset=utf-8' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `auditoria-seo-${siteInfo.url || 'reporte'}-${siteInfo.auditDate}.txt`;
+    // --- FOOTER ---
+    doc.addPage();
+    doc.setFillColor(30, 41, 59);
+    doc.rect(0, 0, pageWidth, 297, 'F'); // Página completa oscura
     
-    // --- CORRECCIÓN CRÍTICA PARA DESCARGA ---
-    document.body.appendChild(a); // Agregar al DOM
-    a.click(); // Ejecutar click
-    document.body.removeChild(a); // Eliminar del DOM
-    window.URL.revokeObjectURL(url); // Liberar memoria
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.text("JAIRO AMAYA", 105, 100, { align: 'center' });
+    doc.setFontSize(14);
+    doc.text("Full Stack Marketer | Consultor SEO", 105, 110, { align: 'center' });
+    
+    doc.setFontSize(11);
+    doc.text("¿Necesitas ayuda con tu estrategia?", 105, 140, { align: 'center' });
+    doc.setTextColor(56, 189, 248); // Light Blue
+    doc.textWithLink("www.jairoamaya.co", 105, 150, { 
+        align: 'center', 
+        url: "https://jairoamaya.co?utm_source=auditor_tool&utm_medium=pdf_report&utm_campaign=seo_audit_final" 
+    });
+
+    doc.save(`auditoria-seo-${siteInfo.url || 'reporte'}.pdf`);
   };
 
   const getColorClasses = (color) => {
@@ -563,7 +624,7 @@ Fecha de Generación: ${new Date().toLocaleString('es-ES')}
               className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-all shadow-lg"
             >
               <FileText size={20} />
-              Exportar Reporte
+              Exportar PDF Profesional
             </button>
             <button
               onClick={resetAudit}
