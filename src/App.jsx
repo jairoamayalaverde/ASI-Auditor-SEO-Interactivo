@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle2, Circle, ChevronDown, ChevronUp, RotateCcw, Award, TrendingUp, AlertTriangle, FileText } from 'lucide-react';
+import { 
+  CheckCircle2, Circle, ChevronDown, ChevronUp, RotateCcw, 
+  Award, TrendingUp, AlertTriangle, FileText, Lightbulb, Info, Save 
+} from 'lucide-react';
 import { jsPDF } from "jspdf";
 
 export default function InteractiveSEOAudit() {
@@ -193,7 +196,8 @@ export default function InteractiveSEOAudit() {
     auditDate: new Date().toISOString().split('T')[0],
     auditor: ''
   });
-  const [showScoreBreakdown, setShowScoreBreakdown] = useState(false);
+  // CAMBIO: Por defecto abierto (true)
+  const [showScoreBreakdown, setShowScoreBreakdown] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -317,7 +321,7 @@ export default function InteractiveSEOAudit() {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(22);
     doc.setFont("helvetica", "bold");
-    doc.text("AUDITORIA SEO PROFESIONAL", 20, 20); // Sin tilde en I para evitar problemas
+    doc.text("AUDITORIA SEO PROFESIONAL", 20, 20);
     
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
@@ -342,7 +346,7 @@ export default function InteractiveSEOAudit() {
     
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text("PUNTUACION GLOBAL", 30, yPos + 12); // Sin tilde
+    doc.text("PUNTUACION GLOBAL", 30, yPos + 12);
     
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
@@ -357,7 +361,7 @@ export default function InteractiveSEOAudit() {
     doc.text(`Nivel: ${scoreLevel.level}`, 100, yPos + 12);
     doc.setFontSize(10);
     doc.text(scoreLevel.desc, 100, yPos + 20);
-    doc.text(`Items Criticos Pendientes: ${criticalRemaining}`, 100, yPos + 28); // Sin tilde en Criticos
+    doc.text(`Items Criticos Pendientes: ${criticalRemaining}`, 100, yPos + 28);
     
     yPos += 50;
 
@@ -370,8 +374,7 @@ export default function InteractiveSEOAudit() {
       doc.setTextColor(185, 28, 28);
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
-      // ELIMINADO EL EMOJI DE AQUÍ
-      doc.text("TOP PRIORIDADES DE ACCION", 30, yPos + 8); // Sin tilde
+      doc.text("TOP PRIORIDADES DE ACCION", 30, yPos + 8);
       
       doc.setTextColor(50, 50, 50);
       doc.setFontSize(10);
@@ -391,7 +394,7 @@ export default function InteractiveSEOAudit() {
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
-    doc.text("DETALLE DE LA AUDITORIA", 20, yPos); // Sin tilde
+    doc.text("DETALLE DE LA AUDITORIA", 20, yPos);
     yPos += 10;
     
     auditData.forEach(phase => {
@@ -405,7 +408,6 @@ export default function InteractiveSEOAudit() {
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(30, 41, 59);
-        // TÍTULOS EN MAYÚSCULAS SIN TILDES PARA SEGURIDAD (Opcional, pero recomendado si falla)
         doc.text(`${phase.title.toUpperCase()} (Progreso: ${calculateProgress(phase)}%)`, 25, yPos + 6);
         yPos += 12;
 
@@ -420,7 +422,7 @@ export default function InteractiveSEOAudit() {
             
             const isChecked = checkedItems[item.id];
             const status = isChecked ? "[ OK ]" : "[   ]";
-            const criticalMark = item.critical && !isChecked ? "(CRITICO)" : ""; // Sin tilde
+            const criticalMark = item.critical && !isChecked ? "(CRITICO)" : "";
             
             if (isChecked) doc.setTextColor(22, 163, 74);
             else if (item.critical) doc.setTextColor(220, 38, 38);
@@ -449,7 +451,6 @@ export default function InteractiveSEOAudit() {
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
-    // ELIMINADO EL EMOJI
     doc.text("RECOMENDACIONES FINALES", 20, yPos);
     yPos += 10;
 
@@ -457,7 +458,7 @@ export default function InteractiveSEOAudit() {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(50, 50, 50);
     const recLines = [
-      "1. Enfocate primero en los items CRITICOS pendientes", // Sin tildes
+      "1. Enfocate primero en los items CRITICOS pendientes",
       "2. Prioriza las acciones de Analisis Tecnico (25% del peso total)",
       "3. Mejora el On-Page SEO para maximizar resultados (30% del peso)",
       "4. Documenta todas las mejoras para proximas auditorias"
@@ -482,10 +483,8 @@ export default function InteractiveSEOAudit() {
     doc.text("JAIRO AMAYA", 105, 90, { align: 'center' });
     doc.setFontSize(12);
     doc.setTextColor(200, 200, 200);
-    // REMOVIDO EL + QUE PODRÍA CAUSAR RUIDO, AUNQUE SUELE SER SEGURO
     doc.text("Full Stack Marketer | Consultor SEO con 20 anos de experiencia", 105, 100, { align: 'center' });
     
-    // ELIMINADOS LOS EMOJIS DE AQUÍ TAMBIÉN
     doc.setTextColor(56, 189, 248);
     doc.textWithLink("Web: jairoamaya.co", 105, 120, { 
       align: 'center', 
@@ -498,19 +497,19 @@ export default function InteractiveSEOAudit() {
     });
 
     doc.setTextColor(255, 255, 255);
-    doc.text("Consultoria: Disponible para proyectos personalizados", 105, 140, { align: 'center' }); // Sin tilde
+    doc.text("Consultoria: Disponible para proyectos personalizados", 105, 140, { align: 'center' });
 
     doc.setFontSize(14);
-    doc.text("Necesitas ayuda profesional con tu estrategia SEO?", 105, 170, { align: 'center' }); // Sin apertura interrogación
+    doc.text("Necesitas ayuda profesional con tu estrategia SEO?", 105, 170, { align: 'center' });
     doc.setTextColor(56, 189, 248);
-    doc.textWithLink("Contactame en jairoamaya.co", 105, 180, { // Sin tilde
+    doc.textWithLink("Contactame en jairoamaya.co", 105, 180, { 
         align: 'center',
         url: "https://jairoamaya.co" 
     });
 
     doc.setTextColor(100, 100, 100);
     doc.setFontSize(10);
-    doc.text(`Fecha de Generacion: ${new Date().toLocaleDateString('es-ES')}`, 105, 280, { align: 'center' }); // Sin tilde
+    doc.text(`Fecha de Generacion: ${new Date().toLocaleDateString('es-ES')}`, 105, 280, { align: 'center' });
 
     doc.save(`auditoria-seo-${siteInfo.url || 'reporte'}.pdf`);
   };
@@ -545,6 +544,38 @@ export default function InteractiveSEOAudit() {
           <p className="text-slate-300 text-lg mb-6">
             Por Jairo Amaya | Sistema de scoring profesional + Exportación
           </p>
+
+          {/* NUEVA SECCIÓN: TIPS DE USO (AQUÍ ESTÁ LA MAGIA) */}
+          <div className="bg-blue-900/40 border border-blue-500/30 rounded-2xl p-6 mb-8 text-left backdrop-blur-sm">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-blue-500/20 rounded-lg text-blue-300 hidden md:block">
+                <Lightbulb size={32} />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
+                   💡 Guía de Uso Rápido
+                </h3>
+                <div className="grid md:grid-cols-2 gap-4 text-slate-300 text-sm">
+                   <div className="flex items-start gap-3">
+                      <CheckCircle2 className="text-green-400 mt-0.5 flex-shrink-0" size={18} />
+                      <p><strong>Marca las casillas</strong> a medida que auditas tu sitio. El progreso se actualiza en tiempo real.</p>
+                   </div>
+                   <div className="flex items-start gap-3">
+                      <Save className="text-purple-400 mt-0.5 flex-shrink-0" size={18} />
+                      <p><strong>Auto-Guardado:</strong> No te preocupes por cerrar la página, tu progreso se guarda automáticamente.</p>
+                   </div>
+                   <div className="flex items-start gap-3">
+                      <FileText className="text-blue-400 mt-0.5 flex-shrink-0" size={18} />
+                      <p><strong>Notas Técnicas:</strong> Usa los campos de texto en cada item para detallar hallazgos específicos.</p>
+                   </div>
+                   <div className="flex items-start gap-3">
+                      <Info className="text-orange-400 mt-0.5 flex-shrink-0" size={18} />
+                      <p><strong>Exportación PRO:</strong> Al terminar, genera un PDF profesional listo para entregar al cliente.</p>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Site Info */}
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 mb-6">
@@ -602,11 +633,21 @@ export default function InteractiveSEOAudit() {
                   style={{width: `${score}%`}}
                 />
               </div>
+              
+              {/* Botón de desglose MEJORADO */}
               <button
                 onClick={() => setShowScoreBreakdown(!showScoreBreakdown)}
-                className="mt-4 text-white/80 hover:text-white text-sm underline"
+                className="mt-6 w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm font-semibold transition-all flex items-center justify-center gap-2"
               >
-                {showScoreBreakdown ? 'Ocultar' : 'Ver'} desglose por fase
+                {showScoreBreakdown ? (
+                    <>
+                        <ChevronUp size={16} /> Ocultar desglose gráfico
+                    </>
+                ) : (
+                    <>
+                        <ChevronDown size={16} /> Ver desglose gráfico por fases
+                    </>
+                )}
               </button>
             </div>
 
@@ -636,9 +677,9 @@ export default function InteractiveSEOAudit() {
             </div>
           </div>
 
-          {/* Score Breakdown */}
+          {/* Score Breakdown (Ahora visible por defecto) */}
           {showScoreBreakdown && (
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 mb-6">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 mb-6 animate-fadeIn">
               <h3 className="text-white text-xl font-bold mb-4">📊 Desglose de Puntuación por Fase</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {auditData.map(phase => {
