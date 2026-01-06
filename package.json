@@ -1,5 +1,5 @@
 {
-  "name": "ASI-auditor-seo-interactivo",
+  "name": "auditor-seo-jairo",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "lucide-react": "^0.292.0"
+    "lucide-react": "^0.292.0",
     "jspdf": "^2.5.1"
   },
   "devDependencies": {
