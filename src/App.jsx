@@ -564,7 +564,7 @@ export default function InteractiveSEOAudit() {
             By Jairo Amaya | con 100+ puntos de verificación, scoring automático y reportes descargables
           </p>
 
-          {/* NUEVA SECCIÓN: TIPS DE USO (AQUÍ ESTÁ LA MAGIA) */}
+          {/* TIPS DE USO */}
           <div className="bg-blue-900/40 border border-blue-500/30 rounded-2xl p-6 mb-8 text-left backdrop-blur-sm">
             <div className="flex items-start gap-4">
               <div className="p-3 bg-blue-500/20 rounded-lg text-blue-300 hidden md:block">
@@ -572,7 +572,7 @@ export default function InteractiveSEOAudit() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold font-heading text-white mb-3 flex items-center gap-2">
-                   💡 Guía de Uso Rápido
+                    💡 Guía de Uso Rápido
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4 text-slate-300 text-sm">
                    <div className="flex items-start gap-3">
@@ -653,7 +653,7 @@ export default function InteractiveSEOAudit() {
                 />
               </div>
               
-              {/* Botón de desglose MEJORADO */}
+              {/* Botón de desglose */}
               <button
                 onClick={() => setShowScoreBreakdown(!showScoreBreakdown)}
                 className="mt-6 w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm font-semibold transition-all flex items-center justify-center gap-2"
@@ -696,7 +696,7 @@ export default function InteractiveSEOAudit() {
             </div>
           </div>
 
-          {/* Score Breakdown (Ahora visible por defecto) */}
+          {/* Score Breakdown */}
           {showScoreBreakdown && (
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 mb-6 animate-fadeIn">
               <h3 className="text-white text-xl font-bold font-heading mb-4">📊 Desglose de Puntuación por Fase</h3>
@@ -866,6 +866,45 @@ export default function InteractiveSEOAudit() {
             );
           })}
         </div>
+
+        {/* === NUEVO: PUENTE ESTRATÉGICO A MATRIZ === */}
+        <div className="mt-12 mb-8 animate-fadeIn">
+          <div className="bg-gradient-to-br from-slate-900 via-black to-slate-900 border border-yellow-500/30 rounded-2xl p-8 text-center relative overflow-hidden shadow-2xl group">
+            
+            {/* Efecto de glow ambiental */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-50"></div>
+            
+            <h3 className="text-2xl md:text-3xl font-bold font-heading text-white mb-2">
+              ✅ ¿Ya sabes <span className="text-yellow-400">QUÉ</span> necesita tu sitio?
+            </h3>
+            
+            <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
+              No te quedes solo con el diagnóstico. Descubre <span className="text-yellow-400 font-semibold">QUÉ hacer PRIMERO</span> y construye un plan de acción inteligente.
+            </p>
+
+            <a 
+              href="https://jairoamaya.co/matriz-de-prioridad-seo/" 
+              target="_top" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg rounded-full transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(234,179,8,0.4)]"
+            >
+              🎯 Usar Matriz de Prioridad SEO
+            </a>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-4 md:gap-8 text-sm text-slate-400">
+              <span className="flex items-center gap-2">
+                <span className="text-green-500">✓</span> Prioriza por Impacto vs Esfuerzo
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="text-green-500">✓</span> Detecta Quick Wins
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="text-green-500">✓</span> Plan de 90 Días
+              </span>
+            </div>
+          </div>
+        </div>
+        {/* === FIN NUEVO BLOQUE === */}
 
         {/* Footer */}
         <div className="mt-8 text-center text-slate-400 text-sm space-y-2">
