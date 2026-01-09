@@ -899,7 +899,7 @@ export default function InteractiveSEOAudit() {
                 <span className="text-green-500">✓</span> Detecta Quick Wins
               </span>
               <span className="flex items-center gap-2">
-                <span className="text-green-500">✓</span> Plan de 90 Días
+                <span className="text-green-500">✓</span> Hoja de ruta clara
               </span>
             </div>
           </div>
