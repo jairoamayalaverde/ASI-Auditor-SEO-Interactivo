@@ -553,15 +553,16 @@ export default function InteractiveSEOAudit() {
   const recommendations = getPriorityRecommendations();
 
   return (
-        <div className="text-center mb-12">
-          <h1 className="font-black uppercase tracking-tighter leading-none mb-4 text-white" style={{ fontSize: 'clamp(2rem, 7vw, 4rem)' }}>
-            Auditor SEO <br />
-            <span className="text-pink-600">Interactivo</span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 font-sans">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl md:text-6xl font-bold font-heading text-white mb-3">
+            Auditor SEO Interactivo
           </h1>
-          <p className="text-slate-400 text-lg">
-            By Jairo Amaya | Diagnóstico técnico profundo basado en 100+ puntos de control
+          <p className="text-slate-300 text-lg mb-6">
+            By Jairo Amaya | con 100+ puntos de verificación, scoring automático y reportes descargables
           </p>
-        </div>
 
           {/* TIPS DE USO */}
           <div className="bg-blue-900/40 border border-blue-500/30 rounded-2xl p-6 mb-8 text-left backdrop-blur-sm">
