@@ -553,26 +553,13 @@ export default function InteractiveSEOAudit() {
   const recommendations = getPriorityRecommendations();
 
   return (
-    {/* Header - INTERVENCIÓN MÍNIMA DE DISEÑO UNIFICADO */}
-        <div className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif" }}>
-          <h1 className="uppercase tracking-tighter leading-none mb-4" 
-            style={{ 
-              fontSize: 'clamp(2.2rem, 8vw, 4.5rem)', 
-              fontWeight: 900,
-              color: '#FFFFFF',
-              margin: '0 auto 1rem auto'
-            }}>
+    {/* Header - VERSIÓN ULTRA SEGURA */}
+        <div className="text-center mb-12">
+          <h1 className="font-black uppercase tracking-tighter leading-none mb-4 text-white" style={{ fontSize: 'clamp(2rem, 7vw, 4rem)' }}>
             Auditor SEO <br />
-            <span style={{ 
-              background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)', 
-              WebkitBackgroundClip: 'text', 
-              WebkitTextFillColor: 'transparent', 
-              filter: 'drop-shadow(0 0 15px rgba(219,39,119,0.3))' 
-            }}>
-              Interactivo
-            </span>
+            <span className="text-pink-600">Interactivo</span>
           </h1>
-          <p className="text-slate-400 text-lg" style={{ fontWeight: 400, maxWidth: '800px', margin: '0 auto' }}>
+          <p className="text-slate-400 text-lg">
             By Jairo Amaya | Diagnóstico técnico profundo basado en 100+ puntos de control
           </p>
         </div>
