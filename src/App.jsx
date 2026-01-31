@@ -552,28 +552,17 @@ export default function InteractiveSEOAudit() {
   const criticalRemaining = getCriticalItemsRemaining();
   const recommendations = getPriorityRecommendations();
 
- {/* Header - DISEÑO UNIFICADO POPPINS & MAGENTA */}
-        <div className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif" }}>
-          <h1 className="uppercase tracking-tighter leading-none mb-4" 
-            style={{ 
-              fontSize: 'clamp(2.2rem, 8vw, 4.5rem)', 
-              fontWeight: 900,
-              color: '#FFFFFF' 
-            }}>
-            Auditor SEO <br />
-            <span style={{ 
-              background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)', 
-              WebkitBackgroundClip: 'text', 
-              WebkitTextFillColor: 'transparent', 
-              filter: 'drop-shadow(0 0 15px rgba(219,39,119,0.3))' 
-            }}>
-              Interactivo
-            </span>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 font-sans">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl md:text-6xl font-bold font-heading text-white mb-3">
+            Auditor SEO Interactivo
           </h1>
-          <p className="text-slate-400 text-lg" style={{ fontWeight: 400 }}>
-            By Jairo Amaya | Diagnóstico técnico profundo basado en 100+ puntos de control
+          <p className="text-slate-300 text-lg mb-6">
+            By Jairo Amaya | con 100+ puntos de verificación, scoring automático y reportes descargables
           </p>
-        </div>
 
           {/* TIPS DE USO */}
           <div className="bg-blue-900/40 border border-blue-500/30 rounded-2xl p-6 mb-8 text-left backdrop-blur-sm">
@@ -878,39 +867,28 @@ export default function InteractiveSEOAudit() {
           })}
         </div>
 
-       {/* BLOQUE DE CIERRE UNIFICADO - CORRECCIÓN DE FUENTE */}
-<div className="mt-16 mb-12" style={{ fontFamily: "'Poppins', sans-serif" }}>
+        {/* BLOQUE DE CIERRE UNIFICADO */}
+<div className="mt-16 mb-12">
   <div className="bg-[#0f172a] border border-white/10 rounded-[32px] p-10 text-center relative overflow-hidden shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6)] group">
-    
     {/* Resplandor Magenta sutil */}
     <div className="absolute -top-24 -right-24 w-64 h-64 bg-pink-600/10 rounded-full blur-[80px] group-hover:bg-pink-600/20 transition-all duration-700"></div>
     
     <div className="relative z-10 max-w-2xl mx-auto">
-      <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter leading-none text-white mb-4" style={{ fontWeight: 900 }}>
-        ✅ ¿Ya sabes <span style={{ 
-          background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)', 
-          WebkitBackgroundClip: 'text', 
-          WebkitTextFillColor: 'transparent' 
-        }}>QUÉ NECESITA</span> TU SITIO?
+      <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter leading-none text-white mb-4">
+        ✅ ¿Ya sabes <span style={{ background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>QUÉ NECESITA</span> TU SITIO?
       </h3>
-      
       <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-        No te quedes solo con el diagnóstico. [cite_start]Descubre <strong>QUÉ HACER PRIMERO</strong> y construye un plan de acción inteligente con nuestra tecnología de priorización. [cite: 4, 6]
+        No te quedes solo con el diagnóstico. Descubre <strong>QUÉ HACER PRIMERO</strong> y construye un plan de acción inteligente con nuestra tecnología de priorización.
       </p>
       
-      <a 
-        href="https://jairoamaya.co/matriz-de-prioridad-seo/" 
-        target="_top" 
-        className="inline-block bg-gradient-to-r from-[#db2777] to-[#7c3aed] text-white font-black py-5 px-10 rounded-full transition-all transform hover:scale-105 shadow-[0_15px_30px_rgba(219,39,119,0.3)] uppercase tracking-widest no-underline"
-        style={{ fontWeight: 900, textDecoration: 'none' }}
-      >
-        [cite_start]🎯 Usar Matriz de Prioridad SEO [cite: 8]
+      <a href="https://jairoamaya.co/matriz-de-prioridad-seo/" target="_top" className="inline-block bg-gradient-to-r from-[#db2777] to-[#7c3aed] text-white font-black py-5 px-10 rounded-full transition-all transform hover:scale-105 shadow-[0_15px_30px_rgba(219,39,119,0.3)] uppercase tracking-widest no-underline">
+        🎯 Usar Matriz de Prioridad SEO
       </a>
 
-      <div className="mt-10 flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500" style={{ fontWeight: 900 }}>
-        [cite_start]<span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Prioriza Impacto</span> [cite: 11]
-        [cite_start]<span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Detecta Quick Wins</span> [cite: 8]
-        [cite_start]<span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Hoja de ruta</span> [cite: 6]
+      <div className="mt-10 flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+        <span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Prioriza Impacto</span>
+        <span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Detecta Quick Wins</span>
+        <span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Hoja de ruta</span>
       </div>
     </div>
   </div>
