@@ -553,7 +553,6 @@ export default function InteractiveSEOAudit() {
   const recommendations = getPriorityRecommendations();
 
   return (
-    {/* Header - VERSIÓN ULTRA SEGURA */}
         <div className="text-center mb-12">
           <h1 className="font-black uppercase tracking-tighter leading-none mb-4 text-white" style={{ fontSize: 'clamp(2rem, 7vw, 4rem)' }}>
             Auditor SEO <br />
