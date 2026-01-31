@@ -553,16 +553,29 @@ export default function InteractiveSEOAudit() {
   const recommendations = getPriorityRecommendations();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8 font-sans">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-6xl font-bold font-heading text-white mb-3">
-            Auditor SEO Interactivo
+    {/* Header - INTERVENCIÓN MÍNIMA DE DISEÑO UNIFICADO */}
+        <div className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif" }}>
+          <h1 className="uppercase tracking-tighter leading-none mb-4" 
+            style={{ 
+              fontSize: 'clamp(2.2rem, 8vw, 4.5rem)', 
+              fontWeight: 900,
+              color: '#FFFFFF',
+              margin: '0 auto 1rem auto'
+            }}>
+            Auditor SEO <br />
+            <span style={{ 
+              background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)', 
+              WebkitBackgroundClip: 'text', 
+              WebkitTextFillColor: 'transparent', 
+              filter: 'drop-shadow(0 0 15px rgba(219,39,119,0.3))' 
+            }}>
+              Interactivo
+            </span>
           </h1>
-          <p className="text-slate-300 text-lg mb-6">
-            By Jairo Amaya | con 100+ puntos de verificación, scoring automático y reportes descargables
+          <p className="text-slate-400 text-lg" style={{ fontWeight: 400, maxWidth: '800px', margin: '0 auto' }}>
+            By Jairo Amaya | Diagnóstico técnico profundo basado en 100+ puntos de control
           </p>
+        </div>
 
           {/* TIPS DE USO */}
           <div className="bg-blue-900/40 border border-blue-500/30 rounded-2xl p-6 mb-8 text-left backdrop-blur-sm">
