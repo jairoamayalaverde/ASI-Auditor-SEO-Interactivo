@@ -867,44 +867,32 @@ export default function InteractiveSEOAudit() {
           })}
         </div>
 
-        {/* === NUEVO: PUENTE ESTRATÉGICO A MATRIZ === */}
-        <div className="mt-12 mb-8 animate-fadeIn">
-          <div className="bg-gradient-to-br from-slate-900 via-black to-slate-900 border border-yellow-500/30 rounded-2xl p-8 text-center relative overflow-hidden shadow-2xl group">
-            
-            {/* Efecto de glow ambiental */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-50"></div>
-            
-            <h3 className="text-2xl md:text-3xl font-bold font-heading text-white mb-2">
-              ✅ ¿Ya sabes <span className="text-yellow-400">QUÉ</span> necesita tu sitio?
-            </h3>
-            
-            <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
-              No te quedes solo con el diagnóstico. Descubre <span className="text-yellow-400 font-semibold">QUÉ hacer PRIMERO</span> y construye un plan de acción inteligente.
-            </p>
+        {/* BLOQUE DE CIERRE UNIFICADO */}
+<div className="mt-16 mb-12">
+  <div className="bg-[#0f172a] border border-white/10 rounded-[32px] p-10 text-center relative overflow-hidden shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6)] group">
+    {/* Resplandor Magenta sutil */}
+    <div className="absolute -top-24 -right-24 w-64 h-64 bg-pink-600/10 rounded-full blur-[80px] group-hover:bg-pink-600/20 transition-all duration-700"></div>
+    
+    <div className="relative z-10 max-w-2xl mx-auto">
+      <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter leading-none text-white mb-4">
+        ✅ ¿Ya sabes <span style={{ background: 'linear-gradient(90deg, #db2777 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>QUÉ NECESITA</span> TU SITIO?
+      </h3>
+      <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+        No te quedes solo con el diagnóstico. Descubre <strong>QUÉ HACER PRIMERO</strong> y construye un plan de acción inteligente con nuestra tecnología de priorización.
+      </p>
+      
+      <a href="https://jairoamaya.co/matriz-de-prioridad-seo/" target="_top" className="inline-block bg-gradient-to-r from-[#db2777] to-[#7c3aed] text-white font-black py-5 px-10 rounded-full transition-all transform hover:scale-105 shadow-[0_15px_30px_rgba(219,39,119,0.3)] uppercase tracking-widest no-underline">
+        🎯 Usar Matriz de Prioridad SEO
+      </a>
 
-            <a 
-              href="https://jairoamaya.co/matriz-de-prioridad-seo/" 
-              target="_top" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg rounded-full transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(234,179,8,0.4)]"
-            >
-              🎯 Usar Matriz de Prioridad SEO
-            </a>
-
-            <div className="mt-8 flex flex-wrap justify-center gap-4 md:gap-8 text-sm text-slate-400">
-              <span className="flex items-center gap-2">
-                <span className="text-green-500">✓</span> Prioriza por Impacto vs Esfuerzo
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="text-green-500">✓</span> Detecta Quick Wins
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="text-green-500">✓</span> Hoja de ruta clara
-              </span>
-            </div>
-          </div>
-        </div>
-        {/* === FIN NUEVO BLOQUE === */}
+      <div className="mt-10 flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+        <span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Prioriza Impacto</span>
+        <span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Detecta Quick Wins</span>
+        <span className="flex items-center gap-2"><span className="text-emerald-500 text-sm">✓</span> Hoja de ruta</span>
+      </div>
+    </div>
+  </div>
+</div>
 
         {/* Footer */}
         <div className="mt-8 text-center text-slate-400 text-sm space-y-2">
